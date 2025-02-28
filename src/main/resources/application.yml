@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    show_sql: true
+  application:
+    name: GameStatWeb
+server:
+  servlet:
+    encoding:
+      force-response: true

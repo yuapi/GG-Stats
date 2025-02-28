@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GG Stats</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9800',
+                        darkBg: '#242424',
+                        darkText: '#FFFFFF',
+                        mutedText: '#B3B3B3',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-white text-gray-900 dark:bg-darkBg dark:text-darkText transition-colors duration-300">
+
+{{> layout/navbar}}

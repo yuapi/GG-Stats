@@ -1,0 +1,54 @@
+<!--    &lt;!&ndash; 최근 경기 결과 &ndash;&gt;-->
+<!--    <section class="mb-10">-->
+<!--        <h2 class="text-2xl font-bold mb-4">최근 경기 결과</h2>-->
+<!--        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">-->
+        <!--            {{#recentMatches}}-->
+<!--                <div class="bg-white shadow-md rounded p-4">-->
+<!--                    <h3 class="font-bold">{{champion}}</h3>-->
+<!--                    <p>결과: {{result}}</p>-->
+<!--                    <p>킬/데스/어시스트: {{kda}}</p>-->
+<!--                    <p>게임 시간: {{gameTime}}</p>-->
+<!--                </div>-->
+        <!--            {{/recentMatches}}-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; 인기 챔피언 &ndash;&gt;-->
+<!--    <section class="mb-10">-->
+<!--        <h2 class="text-2xl font-bold mb-4">인기 챔피언</h2>-->
+<!--        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">-->
+        <!--            {{#popularChampions}}-->
+<!--                <div class="bg-white shadow-md rounded p-4 text-center">-->
+<!--                    <img src="{{image}}" alt="{{name}}" class="w-full h-auto rounded mb-2">-->
+<!--                    <h3 class="font-bold">{{name}}</h3>-->
+<!--                    <p>픽률: {{pickRate}}%</p>-->
+<!--                    <p>승률: {{winRate}}%</p>-->
+<!--                </div>-->
+        <!--            {{/popularChampions}}-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; 승률 순위 &ndash;&gt;-->
+<!--    <section>-->
+<!--        <h2 class="text-2xl font-bold mb-4">챔피언 승률 순위</h2>-->
+<!--        <table class="w-full bg-white shadow-md rounded overflow-hidden">-->
+<!--            <thead class="bg-gray-200 text-left">-->
+<!--            <tr>-->
+<!--                <th class="px-4 py-2">순위</th>-->
+<!--                <th class="px-4 py-2">챔피언</th>-->
+<!--                <th class="px-4 py-2">승률</th>-->
+<!--                <th class="px-4 py-2">픽률</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+        <!--            {{#winRateRankings}}-->
+<!--                <tr class="{{#isEven}}bg-gray-100{{/isEven}}">-->
+<!--                    <td class="px-4 py-2">{{rank}}</td>-->
+<!--                    <td class="px-4 py-2">{{name}}</td>-->
+<!--                    <td class="px-4 py-2">{{winRate}}%</td>-->
+<!--                    <td class="px-4 py-2">{{pickRate}}%</td>-->
+<!--                </tr>-->
+        <!--            {{/winRateRankings}}-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </section>-->
