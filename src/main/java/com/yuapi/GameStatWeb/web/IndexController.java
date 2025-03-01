@@ -46,6 +46,11 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/lol")
+    public String lol(Model model) {
+        return "lol/main";
+    }
+
     @GetMapping("/example")
     public String example(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
