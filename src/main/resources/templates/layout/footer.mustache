@@ -3,35 +3,8 @@
         &copy; 2025 GG Stats | All Rights Reserved
     </div>
 </footer>
-<script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const lightIcon = document.getElementById('theme-toggle-light-icon');
-    const darkIcon = document.getElementById('theme-toggle-dark-icon');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-
-    if (currentTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-        lightIcon.classList.remove('hidden');
-        darkIcon.classList.add('hidden');
-    } else {
-        document.documentElement.classList.remove('dark');
-        lightIcon.classList.add('hidden');
-        darkIcon.classList.remove('hidden');
-    }
-
-    themeToggle.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            lightIcon.classList.remove('hidden');
-            darkIcon.classList.add('hidden');
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-            lightIcon.classList.add('hidden');
-            darkIcon.classList.remove('hidden');
-        }
-    });
-</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="/js/app/index.js"></script>
 </body>
 </html>
