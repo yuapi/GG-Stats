@@ -3,6 +3,29 @@
 
 <section>
     <h2 class="text-2xl font-bold mb-4">소환사 정보</h2>
+
+    <tbody>
+    {{#account}}
+        <tr class="grid bg-white shadow-md rounded p-4 text-center">
+            <td class="px-4 py-2">{{puuid}}</td>
+            <td class="px-4 py-2">{{gameName}}</td>
+            <td class="px-4 py-2">{{tagLine}}</td>
+        </tr>
+    {{/account}}
+    </tbody>
+
+    <tbody>
+    {{#summoner}}
+        <tr class="grid bg-white shadow-md rounded p-4 text-center">
+            <td class="px-4 py-2">{{accountId}}</td>
+            <td class="px-4 py-2">{{profileIconId}}</td>
+            <td class="px-4 py-2">{{revisionDate}}</td>
+            <td class="px-4 py-2">{{id}}</td>
+            <td class="px-4 py-2">{{puuid}}</td>
+            <td class="px-4 py-2">{{summonerLevel}}</td>
+        </tr>
+    {{/summoner}}
+    </tbody>
 </section>
 
 {{> layout/footer}}

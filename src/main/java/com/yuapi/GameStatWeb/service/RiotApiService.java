@@ -50,6 +50,7 @@ public class RiotApiService {
 
     @Transactional
     public RiotAccountDto getAccountByRiotId(String region, String gameName, String tagLine) {
+
         String url = generateUrl(regionMap.get(region), "/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine);
 
         return restTemplate.getForObject(url, RiotAccountDto.class);
