@@ -27,6 +27,8 @@ public class ClientException extends RuntimeException {
             case 401 -> "인증이 필요합니다.";
             case 403 -> "권한이 없습니다.";
             case 404 -> "리소스를 찾을 수 없습니다.";
+            case 415 -> "지원하지 않는 형식입니다.";
+            case 429 -> "사용 제한이 초과되었습니다.";
             default -> "클라이언트 오류가 발생했습니다.";
         };
     }
