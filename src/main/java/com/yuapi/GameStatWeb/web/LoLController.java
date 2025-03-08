@@ -32,7 +32,7 @@ public class LoLController {
         model.addAttribute("isLoLPage", true);
 
         String[] names = URLDecoder.decode(encodedName, StandardCharsets.UTF_8).split("#");
-        RiotAccountDto account = riotApiService.getAccountByRiotId(region, names[0], names[1]);
+        RiotAccountDto account = riotApiService.getAccountByRiotId(names[0], names[1]);
         model.addAttribute("account", account);
 
         LoLSummonerDto summoner = riotApiService.getLoLSummonerByPuuid(region, account.getPuuid());

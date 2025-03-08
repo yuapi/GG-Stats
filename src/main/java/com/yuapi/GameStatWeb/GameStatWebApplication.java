@@ -1,5 +1,6 @@
 package com.yuapi.GameStatWeb;
 
+import com.yuapi.GameStatWeb.exception.ResponseErrorHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,10 @@ public class GameStatWebApplication {
 	}
 
 	@Bean
-	public RestTemplate restTemplate() { return new RestTemplate(); }
+	public RestTemplate restTemplate() {
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ResponseErrorHandler());
+		return restTemplate;
+	}
 
 }

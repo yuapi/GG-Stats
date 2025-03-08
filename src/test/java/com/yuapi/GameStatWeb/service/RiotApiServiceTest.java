@@ -45,7 +45,6 @@ public class RiotApiServiceTest {
     public void testGetAccountByRiotId() {
         String gameName = "테스트";
         String tagLine = "KR1";
-        String region = "kr";
 
         String jsonResponse = """
             {
@@ -60,7 +59,7 @@ public class RiotApiServiceTest {
         mockServer.expect(requestTo(url))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
 
-        RiotAccountDto account = riotApiService.getAccountByRiotId(region, gameName, tagLine);
+        RiotAccountDto account = riotApiService.getAccountByRiotId(gameName, tagLine);
 
         assertThat(account).isNotNull();
         assertThat(account.getPuuid()).isEqualTo("testPuuid");
@@ -82,7 +81,7 @@ public class RiotApiServiceTest {
                 "summonerLevel": 30
             }
             """;
-        String url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/"
+        String url = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-puuid/"
                 + puuid + "?api_key=" + riotApiKey;
 
         mockServer.expect(requestTo(url))
