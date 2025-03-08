@@ -1,8 +1,10 @@
 package com.yuapi.GameStatWeb.web.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class LoLSummonerDto {
 
     private final String accountId;
@@ -11,13 +13,4 @@ public class LoLSummonerDto {
     private final String id;
     private final String puuid;
     private final Long summonerLevel;
-
-    public LoLSummonerDto(String accountId, int profileIconId, Long revisionDate, String id, String puuid, Long summonerLevel) {
-        this.accountId = accountId;
-        this.profileIconId = profileIconId;
-        this.revisionDate = revisionDate;
-        this.id = id;
-        this.puuid = puuid;
-        this.summonerLevel = summonerLevel;
-    }
 }
