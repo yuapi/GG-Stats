@@ -2,14 +2,14 @@ package com.yuapi.GameStatWeb.web.dto;
 
 import org.junit.jupiter.api.Test;
 
-public class LoLMatchesQueryDtoTest {
+public class LoLMatchIdsQueryDtoTest {
 
     @Test
     public void builderTest() {
         int queue = 100;
         Long endTime = 100L;
 
-        LoLMatchesQueryDto dto = LoLMatchesQueryDto.builder()
+        LoLMatchIdsQueryDto dto = LoLMatchIdsQueryDto.builder()
                 .queue(queue)
                 .endTime(endTime)
                 .build();

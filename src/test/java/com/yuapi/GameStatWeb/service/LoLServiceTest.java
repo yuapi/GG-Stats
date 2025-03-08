@@ -1,6 +1,7 @@
 package com.yuapi.GameStatWeb.service;
 
 
+import com.yuapi.GameStatWeb.web.dto.LoLMatchIdsQueryDto;
 import com.yuapi.GameStatWeb.web.dto.LoLSummonerDto;
 import com.yuapi.GameStatWeb.web.dto.RiotAccountDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -23,22 +25,27 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class RiotApiServiceTest {
+public class LoLServiceTest {
 
     @Autowired
-    private RiotApiService riotApiService;
+    private LoLService lolService;
 
     @Autowired
     private RestTemplate restTemplate;
 
     private MockRestServiceServer mockServer;
 
-    @Value("${riot.api.key}")
-    private String riotApiKey;
+    @Value("${api.key.lol}")
+    private String lolApiKey;
 
     @BeforeEach
     public void setup() {
         mockServer = MockRestServiceServer.createServer(restTemplate);
+    }
+
+    private UriComponentsBuilder defaultUriBuilder(String region, String endpoint) {
+        return UriComponentsBuilder.fromUriString("https://" + region + ".api.riotgames.com" + endpoint)
+                .queryParam("api_key", lolApiKey);
     }
 
     @Test
@@ -53,13 +60,12 @@ public class RiotApiServiceTest {
                 "tagLine": "KR1"
             }
             """;
-        String url = "https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/"
-                + URLEncoder.encode(gameName, StandardCharsets.UTF_8) + "/" + URLEncoder.encode(tagLine, StandardCharsets.UTF_8) + "?api_key=" + riotApiKey;
+        UriComponentsBuilder uriBuilder = defaultUriBuilder("asia", "/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine);
 
-        mockServer.expect(requestTo(url))
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
 
-        RiotAccountDto account = riotApiService.getAccountByRiotId(gameName, tagLine);
+        RiotAccountDto account = lolService.getAccountByRiotId(gameName, tagLine);
 
         assertThat(account).isNotNull();
         assertThat(account.getPuuid()).isEqualTo("testPuuid");
@@ -81,13 +87,12 @@ public class RiotApiServiceTest {
                 "summonerLevel": 30
             }
             """;
-        String url = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-puuid/"
-                + puuid + "?api_key=" + riotApiKey;
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/summoner/v4/summoners/by-puuid/" + puuid);
 
-        mockServer.expect(requestTo(url))
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
 
-        LoLSummonerDto summoner = riotApiService.getLoLSummonerByPuuid(region, puuid);
+        LoLSummonerDto summoner = lolService.getSummonerByPuuid(region, puuid);
 
         assertThat(summoner).isNotNull();
         assertThat(summoner.getPuuid()).isEqualTo("testPuuid");
@@ -96,6 +101,41 @@ public class RiotApiServiceTest {
         assertThat(summoner.getRevisionDate()).isEqualTo(1630000000000L);
         assertThat(summoner.getId()).isEqualTo("testId");
         assertThat(summoner.getSummonerLevel()).isEqualTo(30L);
+
+        mockServer.verify();
+    }
+
+    @Test
+    public void testGetMatchIdsByPuuid() {
+        String puuid = "testPuuid";
+        String region = "kr";
+        LoLMatchIdsQueryDto query = LoLMatchIdsQueryDto.builder().build();
+        String jsonResponse = """
+            [
+                "testMatchId1",
+                "testMatchId2",
+                "testMatchId3",
+                "testMatchId4"
+            ]
+            """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder("asia", "/lol/match/v5/matches/by-puuid/" + puuid + "/ids");
+        uriBuilder.queryParam("start", query.getStart());
+        uriBuilder.queryParam("count", query.getCount());
+
+
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        String[] matchIds = lolService.getMatchIdsByPuuid(region, puuid, query);
+
+        assertThat(matchIds).isNotNull();
+        assertThat(matchIds.length).isEqualTo(4);
+        assertThat(matchIds[0]).isEqualTo("testMatchId1");
+        assertThat(matchIds[1]).isEqualTo("testMatchId2");
+        assertThat(matchIds[2]).isEqualTo("testMatchId3");
+        assertThat(matchIds[3]).isEqualTo("testMatchId4");
 
         mockServer.verify();
     }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LoLMatchesQueryDto {
+public class LoLMatchIdsQueryDto {
 
     private Long startTime;
     private Long endTime;

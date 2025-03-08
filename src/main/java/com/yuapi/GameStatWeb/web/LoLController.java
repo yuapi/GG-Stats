@@ -1,6 +1,6 @@
 package com.yuapi.GameStatWeb.web;
 
-import com.yuapi.GameStatWeb.service.RiotApiService;
+import com.yuapi.GameStatWeb.service.LoLService;
 import com.yuapi.GameStatWeb.web.dto.LoLSummonerDto;
 import com.yuapi.GameStatWeb.web.dto.RiotAccountDto;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 @Controller
 public class LoLController {
 
-    private final RiotApiService riotApiService;
+    private final LoLService lolService;
 
     @GetMapping("/lol")
     public String lol(Model model) {
@@ -32,10 +32,10 @@ public class LoLController {
         model.addAttribute("isLoLPage", true);
 
         String[] names = URLDecoder.decode(encodedName, StandardCharsets.UTF_8).split("#");
-        RiotAccountDto account = riotApiService.getAccountByRiotId(names[0], names[1]);
+        RiotAccountDto account = lolService.getAccountByRiotId(names[0], names[1]);
         model.addAttribute("account", account);
 
-        LoLSummonerDto summoner = riotApiService.getLoLSummonerByPuuid(region, account.getPuuid());
+        LoLSummonerDto summoner = lolService.getSummonerByPuuid(region, account.getPuuid());
         model.addAttribute("summoner", summoner);
 
         return "lol/summoner";
