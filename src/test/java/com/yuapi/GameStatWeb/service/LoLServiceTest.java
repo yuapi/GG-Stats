@@ -1,6 +1,7 @@
 package com.yuapi.GameStatWeb.service;
 
 
+import com.yuapi.GameStatWeb.web.dto.LoLMatchDto;
 import com.yuapi.GameStatWeb.web.dto.LoLMatchIdsQueryDto;
 import com.yuapi.GameStatWeb.web.dto.LoLSummonerDto;
 import com.yuapi.GameStatWeb.web.dto.RiotAccountDto;
@@ -123,8 +124,6 @@ public class LoLServiceTest {
         uriBuilder.queryParam("start", query.getStart());
         uriBuilder.queryParam("count", query.getCount());
 
-
-
         mockServer.expect(requestTo(uriBuilder.toUriString()))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
 
@@ -136,6 +135,53 @@ public class LoLServiceTest {
         assertThat(matchIds[1]).isEqualTo("testMatchId2");
         assertThat(matchIds[2]).isEqualTo("testMatchId3");
         assertThat(matchIds[3]).isEqualTo("testMatchId4");
+
+        mockServer.verify();
+    }
+
+    @Test
+    public void testGetMatchById() {
+        String matchId = "testMatchId";
+        String region = "kr";
+        String jsonResponse = """
+                {
+                    "metadata": {
+                        "dataVersion": "testVersion",
+                        "matchId": "testMatchId",
+                        "participants": [
+                            "testParticipantId1",
+                            "testParticipantId2",
+                            "testParticipantId3"
+                        ]
+                    },
+                    "info": {
+                        "endOfGameResult": "win",
+                        "gameCreation": 100,
+                        "gameDuration": 50,
+                        "participants": [],
+                        "gameMode": "testMode"
+                    }
+                }
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder("asia", "/lol/match/v5/matches/" + matchId);
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLMatchDto match = lolService.getMatchById(region, matchId);
+
+        assertThat(match).isNotNull();
+        assertThat(match.getMetadata().getDataVersion()).isEqualTo("testVersion");
+        assertThat(match.getMetadata().getMatchId()).isEqualTo("testMatchId");
+        assertThat(match.getMetadata().getParticipants().get(0)).isEqualTo("testParticipantId1");
+        assertThat(match.getMetadata().getParticipants().get(1)).isEqualTo("testParticipantId2");
+        assertThat(match.getMetadata().getParticipants().get(2)).isEqualTo("testParticipantId3");
+        assertThat(match.getInfo().getEndOfGameResult()).isEqualTo("win");
+        assertThat(match.getInfo().getGameCreation()).isEqualTo(100);
+        assertThat(match.getInfo().getGameDuration()).isEqualTo(50);
+        assertThat(match.getInfo().getParticipants().size()).isEqualTo(0);
+        assertThat(match.getInfo().getGameMode()).isEqualTo("testMode");
 
         mockServer.verify();
     }

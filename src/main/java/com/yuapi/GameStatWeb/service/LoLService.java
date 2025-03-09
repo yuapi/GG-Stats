@@ -1,5 +1,6 @@
 package com.yuapi.GameStatWeb.service;
 
+import com.yuapi.GameStatWeb.web.dto.LoLMatchDto;
 import com.yuapi.GameStatWeb.web.dto.LoLMatchIdsQueryDto;
 import com.yuapi.GameStatWeb.web.dto.LoLSummonerDto;
 import com.yuapi.GameStatWeb.web.dto.RiotAccountDto;
@@ -86,5 +87,12 @@ public class LoLService {
         uriBuilder.queryParam("count", query.getCount());
 
         return restTemplate.getForObject(uriBuilder.build(false).toUriString(), String[].class);
+    }
+
+    @Transactional
+    public LoLMatchDto getMatchById(String region, String matchId) {
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(regionMap.get(region), "/lol/match/v5/matches/" + matchId);
+
+        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLMatchDto.class);
     }
 }
