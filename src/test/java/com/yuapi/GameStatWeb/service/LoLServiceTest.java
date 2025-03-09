@@ -1,10 +1,8 @@
 package com.yuapi.GameStatWeb.service;
 
 
-import com.yuapi.GameStatWeb.web.dto.LoLMatchDto;
-import com.yuapi.GameStatWeb.web.dto.LoLMatchIdsQueryDto;
-import com.yuapi.GameStatWeb.web.dto.LoLSummonerDto;
-import com.yuapi.GameStatWeb.web.dto.RiotAccountDto;
+import com.yuapi.GameStatWeb.domain.enums.QueueType;
+import com.yuapi.GameStatWeb.web.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -76,8 +74,8 @@ public class LoLServiceTest {
 
     @Test
     public void testGetSummonerByPuuid() {
-        String puuid = "testPuuid";
         String region = "kr";
+        String puuid = "testPuuid";
         String jsonResponse = """
             {
                 "accountId": "testAccountId",
@@ -108,8 +106,8 @@ public class LoLServiceTest {
 
     @Test
     public void testGetMatchIdsByPuuid() {
-        String puuid = "testPuuid";
         String region = "kr";
+        String puuid = "testPuuid";
         LoLMatchIdsQueryDto query = LoLMatchIdsQueryDto.builder().build();
         String jsonResponse = """
             [
@@ -141,8 +139,8 @@ public class LoLServiceTest {
 
     @Test
     public void testGetMatchById() {
-        String matchId = "testMatchId";
         String region = "kr";
+        String matchId = "testMatchId";
         String jsonResponse = """
                 {
                     "metadata": {
@@ -182,6 +180,43 @@ public class LoLServiceTest {
         assertThat(match.getInfo().getGameDuration()).isEqualTo(50);
         assertThat(match.getInfo().getParticipants().size()).isEqualTo(0);
         assertThat(match.getInfo().getGameMode()).isEqualTo("testMode");
+
+        mockServer.verify();
+    }
+
+    @Test
+    public void testGetChallengerLeague() {
+        String region = "kr";
+        QueueType queueType = QueueType.RANKED_SOLO_5x5;
+        String jsonResponse = """
+                {
+                    "leagueId": "testLeagueId",
+                    "entries": [{
+                        "freshBlood": false,
+                        "wins": 5,
+                        "puuid": "testPuuid"
+                    }],
+                    "tier": "challenger",
+                    "name": "testChallenger",
+                    "queue": "RANKED_SOLO_5x5"
+                }
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/challengerleagues/by-queue/" + queueType.getValue());
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLLeagueListDto challengerLeague = lolService.getChallengerLeague(region, queueType);
+
+        assertThat(challengerLeague).isNotNull();
+        assertThat(challengerLeague.getLeagueId()).isEqualTo("testLeagueId");
+        assertThat(challengerLeague.getEntries().get(0).isFreshBlood()).isEqualTo(false);
+        assertThat(challengerLeague.getEntries().get(0).getWins()).isEqualTo(5);
+        assertThat(challengerLeague.getEntries().get(0).getPuuid()).isEqualTo("testPuuid");
+        assertThat(challengerLeague.getTier()).isEqualTo("challenger");
+        assertThat(challengerLeague.getName()).isEqualTo("testChallenger");
+        assertThat(challengerLeague.getQueue()).isEqualTo("RANKED_SOLO_5x5");
 
         mockServer.verify();
     }

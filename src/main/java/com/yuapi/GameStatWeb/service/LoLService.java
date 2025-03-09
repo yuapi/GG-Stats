@@ -1,9 +1,7 @@
 package com.yuapi.GameStatWeb.service;
 
-import com.yuapi.GameStatWeb.web.dto.LoLMatchDto;
-import com.yuapi.GameStatWeb.web.dto.LoLMatchIdsQueryDto;
-import com.yuapi.GameStatWeb.web.dto.LoLSummonerDto;
-import com.yuapi.GameStatWeb.web.dto.RiotAccountDto;
+import com.yuapi.GameStatWeb.domain.enums.QueueType;
+import com.yuapi.GameStatWeb.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -94,5 +92,12 @@ public class LoLService {
         UriComponentsBuilder uriBuilder = defaultUriBuilder(regionMap.get(region), "/lol/match/v5/matches/" + matchId);
 
         return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLMatchDto.class);
+    }
+
+    @Transactional
+    public LoLLeagueListDto getChallengerLeague(String region, QueueType queueType) {
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/challengerleagues/by-queue/" + queueType.getValue());
+
+        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLLeagueListDto.class);
     }
 }
