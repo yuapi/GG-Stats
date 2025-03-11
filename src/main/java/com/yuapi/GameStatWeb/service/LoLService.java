@@ -100,4 +100,11 @@ public class LoLService {
 
         return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLLeagueListDto.class);
     }
+
+    @Transactional
+    public LoLLeagueListDto getGrandmasterLeague(String region, QueueType queueType) {
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/grandmasterleagues/by-queue/" + queueType.getValue());
+
+        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLLeagueListDto.class);
+    }
 }

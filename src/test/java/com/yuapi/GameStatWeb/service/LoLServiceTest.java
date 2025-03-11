@@ -220,4 +220,41 @@ public class LoLServiceTest {
 
         mockServer.verify();
     }
+
+    @Test
+    public void testGetGrandmasterLeague() {
+        String region = "kr";
+        QueueType queueType = QueueType.RANKED_FLEX_SR;
+        String jsonResponse = """
+                {
+                    "leagueId": "testLeagueId",
+                    "entries": [{
+                        "freshBlood": true,
+                        "wins": 3,
+                        "puuid": "testPuuid"
+                    }],
+                    "tier": "grandmaster",
+                    "name": "testGrandmaster",
+                    "queue": "RANKED_FLEX_SR"
+                }
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/grandmasterleagues/by-queue/" + queueType.getValue());
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLLeagueListDto grandmasterLeague = lolService.getGrandmasterLeague(region, queueType);
+
+        assertThat(grandmasterLeague).isNotNull();
+        assertThat(grandmasterLeague.getLeagueId()).isEqualTo("testLeagueId");
+        assertThat(grandmasterLeague.getEntries().get(0).isFreshBlood()).isEqualTo(true);
+        assertThat(grandmasterLeague.getEntries().get(0).getWins()).isEqualTo(3);
+        assertThat(grandmasterLeague.getEntries().get(0).getPuuid()).isEqualTo("testPuuid");
+        assertThat(grandmasterLeague.getTier()).isEqualTo("grandmaster");
+        assertThat(grandmasterLeague.getName()).isEqualTo("testGrandmaster");
+        assertThat(grandmasterLeague.getQueue()).isEqualTo("RANKED_FLEX_SR");
+
+        mockServer.verify();
+    }
 }
