@@ -257,4 +257,41 @@ public class LoLServiceTest {
 
         mockServer.verify();
     }
+
+    @Test
+    public void testGetMasterLeague() {
+        String region = "kr";
+        QueueType queueType = QueueType.RANKED_FLEX_TT;
+        String jsonResponse = """
+                {
+                    "leagueId": "testLeagueId",
+                    "entries": [{
+                        "freshBlood": false,
+                        "wins": 1,
+                        "puuid": "testPuuid"
+                    }],
+                    "tier": "master",
+                    "name": "testMaster",
+                    "queue": "RANKED_FLEX_TT"
+                }
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "lol/league/v4/masterleagues/by-queue/" + queueType.getValue());
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLLeagueListDto masterLeague = lolService.getMasterLeague(region, queueType);
+
+        assertThat(masterLeague).isNotNull();
+        assertThat(masterLeague.getLeagueId()).isEqualTo("testLeagueId");
+        assertThat(masterLeague.getEntries().get(0).isFreshBlood()).isEqualTo(false);
+        assertThat(masterLeague.getEntries().get(0).getWins()).isEqualTo(1);
+        assertThat(masterLeague.getEntries().get(0).getPuuid()).isEqualTo("testPuuid");
+        assertThat(masterLeague.getTier()).isEqualTo("master");
+        assertThat(masterLeague.getName()).isEqualTo("testMaster");
+        assertThat(masterLeague.getQueue()).isEqualTo("RANKED_FLEX_TT");
+
+        mockServer.verify();
+    }
 }
