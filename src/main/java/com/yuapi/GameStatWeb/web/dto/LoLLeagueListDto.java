@@ -19,7 +19,7 @@ public class LoLLeagueListDto {
     public static class LeagueItemDto {
         private boolean freshBlood;
         private int wins;
-        private MiniSeriesDto miniSeries;
+        private LoLMiniSeriesDto miniSeries;
         private boolean inactive;
         private boolean veteran;
         private boolean hotStreak;
@@ -28,14 +28,5 @@ public class LoLLeagueListDto {
         private int losses;
         private String summonerId;
         private String puuid;
-    }
-
-    @Getter
-    @Builder
-    public static class MiniSeriesDto {
-        private int losses;
-        private String progress;
-        private int target;
-        private int wins;
     }
 }
