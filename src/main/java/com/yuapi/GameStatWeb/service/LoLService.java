@@ -4,12 +4,16 @@ import com.yuapi.GameStatWeb.domain.enums.QueueType;
 import com.yuapi.GameStatWeb.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Map;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -110,8 +114,15 @@ public class LoLService {
 
     @Transactional
     public LoLLeagueListDto getMasterLeague(String region, QueueType queueType) {
-        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "lol/league/v4/masterleagues/by-queue/" + queueType.getValue());
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/masterleagues/by-queue/" + queueType.getValue());
 
         return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLLeagueListDto.class);
+    }
+
+    @Transactional
+    public LoLLeagueEntryDto[] getLeagueEntriesByPuuid(String region, String puuid) {
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/entries/by-puuid/" + puuid);
+
+        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLLeagueEntryDto[].class);
     }
 }

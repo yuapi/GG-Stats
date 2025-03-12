@@ -276,7 +276,7 @@ public class LoLServiceTest {
                 }
                 """;
 
-        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "lol/league/v4/masterleagues/by-queue/" + queueType.getValue());
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/masterleagues/by-queue/" + queueType.getValue());
 
         mockServer.expect(requestTo(uriBuilder.toUriString()))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
@@ -291,6 +291,70 @@ public class LoLServiceTest {
         assertThat(masterLeague.getTier()).isEqualTo("master");
         assertThat(masterLeague.getName()).isEqualTo("testMaster");
         assertThat(masterLeague.getQueue()).isEqualTo("RANKED_FLEX_TT");
+
+        mockServer.verify();
+    }
+
+    @Test
+    public void testGetLeagueEntriesByPuuid() {
+        String region = "kr";
+        String puuid = "testPuuid";
+        String jsonResponse = """
+                [
+                    {
+                        "leagueId": "testLeagueId1",
+                        "queueType": "RANKED_SOLO_5x5",
+                        "tier": "PLATINUM",
+                        "rank": "III",
+                        "summonerId": "testSummonerId",
+                        "puuid": "testPuuid",
+                        "leaguePoints": 12,
+                        "wins": 11,
+                        "losses": 10,
+                        "veteran": false,
+                        "inactive": false,
+                        "freshBlood": false,
+                        "hotStreak": false
+                    },
+                    {
+                        "leagueId": "testLeagueId2",
+                        "queueType": "RANKED_FLEX_SR",
+                        "tier": "EMERALD",
+                        "rank": "I",
+                        "summonerId": "testSummonerId",
+                        "puuid": "testPuuid",
+                        "leaguePoints": 64,
+                        "wins": 20,
+                        "losses": 13,
+                        "veteran": false,
+                        "inactive": false,
+                        "freshBlood": false,
+                        "hotStreak": false
+                    }
+                ]
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/league/v4/entries/by-puuid/" + puuid);
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLLeagueEntryDto[] entries = lolService.getLeagueEntriesByPuuid(region, puuid);
+
+        assertThat(entries).isNotNull();
+        assertThat(entries.length).isEqualTo(2);
+        assertThat(entries[0].getLeagueId()).isEqualTo("testLeagueId1");
+        assertThat(entries[0].getQueueType()).isEqualTo("RANKED_SOLO_5x5");
+        assertThat(entries[0].getTier()).isEqualTo("PLATINUM");
+        assertThat(entries[0].getRank()).isEqualTo("III");
+        assertThat(entries[0].getSummonerId()).isEqualTo("testSummonerId");
+        assertThat(entries[0].getPuuid()).isEqualTo("testPuuid");
+        assertThat(entries[1].getLeagueId()).isEqualTo("testLeagueId2");
+        assertThat(entries[1].getQueueType()).isEqualTo("RANKED_FLEX_SR");
+        assertThat(entries[1].getTier()).isEqualTo("EMERALD");
+        assertThat(entries[1].getRank()).isEqualTo("I");
+        assertThat(entries[1].getSummonerId()).isEqualTo("testSummonerId");
+        assertThat(entries[1].getPuuid()).isEqualTo("testPuuid");
 
         mockServer.verify();
     }
