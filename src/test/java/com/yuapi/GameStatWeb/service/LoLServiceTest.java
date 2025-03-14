@@ -358,4 +358,70 @@ public class LoLServiceTest {
 
         mockServer.verify();
     }
+
+    @Test
+    public void testGetChampionRotations() {
+        String region = "kr";
+        String responseJson = """
+                {
+                    "freeChampionIds": [
+                        12,
+                        24,
+                        25,
+                        29,
+                        30,
+                        38,
+                        50,
+                        68,
+                        74,
+                        75,
+                        81,
+                        103,
+                        115,
+                        119,
+                        127,
+                        136,
+                        234,
+                        240,
+                        876,
+                        902
+                    ],
+                    "freeChampionIdsForNewPlayers": [
+                        222,
+                        254,
+                        33,
+                        82,
+                        131,
+                        350,
+                        54,
+                        17,
+                        18,
+                        37,
+                        51,
+                        145,
+                        134,
+                        89,
+                        875,
+                        80,
+                        115,
+                        91,
+                        113,
+                        112
+                    ],
+                    "maxNewPlayerLevel": 10
+                }
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/platform/v3/champion-rotations");
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(responseJson, MediaType.APPLICATION_JSON));
+
+        LoLChampionInfoDto championRotations = lolService.getChampionRotations(region);
+
+        assertThat(championRotations).isNotNull();
+        assertThat(championRotations.getFreeChampionIdsForNewPlayers().size()).isEqualTo(20);
+        assertThat(championRotations.getFreeChampionIdsForNewPlayers().size()).isEqualTo(20);
+        assertThat(championRotations.getMaxNewPlayerLevel()).isEqualTo(10);
+    }
 }
