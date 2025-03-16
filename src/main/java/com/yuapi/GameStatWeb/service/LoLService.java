@@ -132,4 +132,11 @@ public class LoLService {
 
         return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLChampionInfoDto.class);
     }
+
+    @Transactional
+    public LoLCurrentGameInfoDto getCurrentGame(String region, String puuid) {
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/spectator/v5/active-games/by-summoner/" + puuid);
+
+        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLCurrentGameInfoDto.class);
+    }
 }

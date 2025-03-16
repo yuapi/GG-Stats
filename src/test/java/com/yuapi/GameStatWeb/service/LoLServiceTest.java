@@ -424,4 +424,35 @@ public class LoLServiceTest {
         assertThat(championRotations.getFreeChampionIdsForNewPlayers().size()).isEqualTo(20);
         assertThat(championRotations.getMaxNewPlayerLevel()).isEqualTo(10);
     }
+
+    @Test
+    public void testGetCurrentGame() {
+        String region = "kr";
+        String puuid = "testPuuid";
+        String responseJson = """
+                {
+                    "gameId": 12,
+                    "gameType": "RANK",
+                    "gameStartTime": 1,
+                    "mapId": 2,
+                    "gameMode": "testMode"
+                }
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/spectator/v5/active-games/by-summoner/" + puuid);
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(responseJson, MediaType.APPLICATION_JSON));
+
+        LoLCurrentGameInfoDto currentGame = lolService.getCurrentGame(region, puuid);
+
+        assertThat(currentGame).isNotNull();
+        assertThat(currentGame.getGameId()).isEqualTo(12);
+        assertThat(currentGame.getGameType()).isEqualTo("RANK");
+        assertThat(currentGame.getGameStartTime()).isEqualTo(1);
+        assertThat(currentGame.getMapId()).isEqualTo(2);
+        assertThat(currentGame.getGameMode()).isEqualTo("testMode");
+
+        mockServer.verify();
+    }
 }
