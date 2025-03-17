@@ -486,4 +486,53 @@ public class LoLServiceTest {
 
         mockServer.verify();
     }
+
+    @Test
+    public void testGetClashTeam() {
+        String region = "kr";
+        String teamId = "testTeamId";
+        String responseJson = """
+                {
+                    "id": "testTeamId",
+                    "tournamentId": 1,
+                    "name": "testTeam",
+                    "iconId": 1,
+                    "tier": 3,
+                    "captain": "captainId",
+                    "abbreviation": "abbreviation",
+                    "players": [
+                        {
+                            "summonerId": "testSummonerId",
+                            "puuid": "testPuuid",
+                            "teamId": "testTeamId",
+                            "position": "BOTTOM",
+                            "role": "CAPTAIN"
+                        }
+                    ]
+                }
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/clash/v1/teams/" + teamId);
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(responseJson, MediaType.APPLICATION_JSON));
+
+        LoLTeamDto team = lolService.getClashTeam(region, teamId);
+
+        assertThat(team).isNotNull();
+        assertThat(team.getId()).isEqualTo("testTeamId");
+        assertThat(team.getTournamentId()).isEqualTo(1);
+        assertThat(team.getName()).isEqualTo("testTeam");
+        assertThat(team.getIconId()).isEqualTo(1);
+        assertThat(team.getTier()).isEqualTo(3);
+        assertThat(team.getCaptain()).isEqualTo("captainId");
+        assertThat(team.getAbbreviation()).isEqualTo("abbreviation");
+        assertThat(team.getPlayers().get(0).getSummonerId()).isEqualTo("testSummonerId");
+        assertThat(team.getPlayers().get(0).getPuuid()).isEqualTo("testPuuid");
+        assertThat(team.getPlayers().get(0).getTeamId()).isEqualTo("testTeamId");
+        assertThat(team.getPlayers().get(0).getPosition()).isEqualTo("BOTTOM");
+        assertThat(team.getPlayers().get(0).getRole()).isEqualTo("CAPTAIN");
+
+        mockServer.verify();
+    }
 }

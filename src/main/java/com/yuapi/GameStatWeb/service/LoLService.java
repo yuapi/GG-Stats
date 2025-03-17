@@ -146,4 +146,11 @@ public class LoLService {
 
         return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLPlayerDto[].class);
     }
+
+    @Transactional
+    public LoLTeamDto getClashTeam(String region, String teamId) {
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/clash/v1/teams/" + teamId);
+
+        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLTeamDto.class);
+    }
 }
