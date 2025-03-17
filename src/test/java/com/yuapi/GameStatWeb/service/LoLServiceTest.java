@@ -15,8 +15,6 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -452,6 +450,39 @@ public class LoLServiceTest {
         assertThat(currentGame.getGameStartTime()).isEqualTo(1);
         assertThat(currentGame.getMapId()).isEqualTo(2);
         assertThat(currentGame.getGameMode()).isEqualTo("testMode");
+
+        mockServer.verify();
+    }
+
+    @Test
+    public void testGetClashPlayer() {
+        String region = "kr";
+        String puuid = "testPuuid";
+        String responseJson = """
+                [
+                    {
+                        "summonerId": "testSummonerId",
+                        "puuid": "testPuuid",
+                        "teamId": "testTeamId",
+                        "position": "TOP",
+                        "role": "MEMBER"
+                    }
+                ]
+                """;
+
+        UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/clash/v1/players/by-puuid/" + puuid);
+
+        mockServer.expect(requestTo(uriBuilder.toUriString()))
+                .andRespond(withSuccess(responseJson, MediaType.APPLICATION_JSON));
+
+        LoLPlayerDto[] players = lolService.getClashPlayer(region, puuid);
+
+        assertThat(players).isNotNull();
+        assertThat(players[0].getSummonerId()).isEqualTo("testSummonerId");
+        assertThat(players[0].getPuuid()).isEqualTo("testPuuid");
+        assertThat(players[0].getTeamId()).isEqualTo("testTeamId");
+        assertThat(players[0].getPosition()).isEqualTo("TOP");
+        assertThat(players[0].getRole()).isEqualTo("MEMBER");
 
         mockServer.verify();
     }
