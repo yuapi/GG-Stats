@@ -1,7 +1,7 @@
 package com.yuapi.GameStatWeb.web;
 
 import com.yuapi.GameStatWeb.service.LoLService;
-import com.yuapi.GameStatWeb.web.dto.LoLSummonerDto;
+import com.yuapi.GameStatWeb.web.dto.lol.LoLSummonerDto;
 import com.yuapi.GameStatWeb.web.dto.RiotAccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

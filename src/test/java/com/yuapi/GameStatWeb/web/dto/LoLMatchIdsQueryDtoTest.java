@@ -1,5 +1,6 @@
 package com.yuapi.GameStatWeb.web.dto;
 
+import com.yuapi.GameStatWeb.web.dto.lol.LoLMatchIdsQueryDto;
 import org.junit.jupiter.api.Test;
 
 public class LoLMatchIdsQueryDtoTest {

@@ -2,18 +2,15 @@ package com.yuapi.GameStatWeb.service;
 
 import com.yuapi.GameStatWeb.domain.enums.QueueType;
 import com.yuapi.GameStatWeb.web.dto.*;
+import com.yuapi.GameStatWeb.web.dto.lol.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Map;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
