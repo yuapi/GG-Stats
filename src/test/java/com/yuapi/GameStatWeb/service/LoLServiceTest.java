@@ -47,6 +47,24 @@ public class LoLServiceTest {
     }
 
     @Test
+    public void testGetCurrentVersion() {
+        String jsonResponse = """
+                ["15.6.1","15.5.1","15.4.1","15.3.1","15.2.1","15.1.1","14.24.1","14.23.1","14.22.1","14.21.1"]
+                """;
+
+        String url = "https://ddragon.leagueoflegends.com/api/versions.json";
+
+        mockServer.expect(requestTo(url))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        String currentVersion = lolService.getCurrentVersion();
+
+        assertThat(currentVersion).isEqualTo("15.6.1");
+
+        mockServer.verify();
+    }
+
+    @Test
     public void testGetAccountByRiotId() {
         String gameName = "테스트";
         String tagLine = "KR1";

@@ -53,6 +53,16 @@ public class LoLService {
     }
 
     @Transactional
+    public String getCurrentVersion() {
+        String url = "https://ddragon.leagueoflegends.com/api/versions.json";
+
+        String[] versions = restTemplate.getForObject(url, String[].class);
+
+        if (versions == null || versions.length == 0) return null;
+        else return versions[0];
+    }
+
+    @Transactional
     public RiotAccountDto getAccountByRiotId(String gameName, String tagLine) {
         UriComponentsBuilder uriBuilder = defaultUriBuilder("asia", "/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine);
 
