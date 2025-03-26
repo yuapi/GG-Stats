@@ -65,6 +65,34 @@ public class LoLServiceTest {
     }
 
     @Test
+    public void testGetRealmsByRegion() {
+        String region = "kr";
+        String jsonResponse = "{\"n\":{\"item\":\"15.6.1\",\"rune\":\"7.23.1\",\"mastery\":\"7.23.1\",\"summoner\":\"15.6.1\",\"champion\":\"15.6.1\",\"profileicon\":\"15.6.1\",\"map\":\"15.6.1\",\"language\":\"15.6.1\",\"sticker\":\"15.6.1\"},\"v\":\"15.6.1\",\"l\":\"ko_KR\",\"cdn\":\"https://ddragon.leagueoflegends.com/cdn\",\"dd\":\"15.6.1\",\"lg\":\"15.6.1\",\"css\":\"15.6.1\",\"profileiconmax\":28,\"store\":null}";
+
+        String url = "https://ddragon.leagueoflegends.com/realms/" + region + ".json";
+
+        mockServer.expect(requestTo(url))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLRealmsDto realms = lolService.getRealmsByRegion(region);
+
+        assertThat(realms.getN().getItem()).isEqualTo("15.6.1");
+        assertThat(realms.getN().getRune()).isEqualTo("7.23.1");
+        assertThat(realms.getN().getMastery()).isEqualTo("7.23.1");
+        assertThat(realms.getN().getSummoner()).isEqualTo("15.6.1");
+        assertThat(realms.getN().getChampion()).isEqualTo("15.6.1");
+        assertThat(realms.getN().getProfileicon()).isEqualTo("15.6.1");
+        assertThat(realms.getN().getMap()).isEqualTo("15.6.1");
+        assertThat(realms.getN().getLanguage()).isEqualTo("15.6.1");
+        assertThat(realms.getN().getSticker()).isEqualTo("15.6.1");
+        assertThat(realms.getV()).isEqualTo("15.6.1");
+        assertThat(realms.getL()).isEqualTo("ko_KR");
+        assertThat(realms.getCdn()).isEqualTo("https://ddragon.leagueoflegends.com/cdn");
+
+        mockServer.verify();
+    }
+
+    @Test
     public void testGetAccountByRiotId() {
         String gameName = "테스트";
         String tagLine = "KR1";

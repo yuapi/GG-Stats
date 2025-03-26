@@ -63,6 +63,13 @@ public class LoLService {
     }
 
     @Transactional
+    public LoLRealmsDto getRealmsByRegion(String region) {
+        String url = "https://ddragon.leagueoflegends.com/realms/" + region + ".json";
+
+        return restTemplate.getForObject(url, LoLRealmsDto.class);
+    }
+
+    @Transactional
     public RiotAccountDto getAccountByRiotId(String gameName, String tagLine) {
         UriComponentsBuilder uriBuilder = defaultUriBuilder("asia", "/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine);
 
