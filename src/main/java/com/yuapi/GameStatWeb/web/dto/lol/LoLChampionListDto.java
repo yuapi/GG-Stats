@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Builder
@@ -11,7 +12,7 @@ public class LoLChampionListDto {
     private String type;
     private String format;
     private String version;
-    private List<Champion> data;
+    private Map<String, Champion> data;
 
     @Getter
     @Builder
