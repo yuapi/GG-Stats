@@ -93,6 +93,30 @@ public class LoLServiceTest {
     }
 
     @Test
+    public void testGetChampions() {
+        String version = "15.6.1";
+        String language = "ko_KR";
+        String jsonResponse = """
+                {"type":"champion","format":"standAloneComplex","version":"15.6.1","data":{"Aatrox":{"version":"15.6.1","id":"Aatrox","key":"266","name":"아트록스","title":"다르킨의 검","blurb":"한때는 공허에 맞서 싸웠던 슈리마의 명예로운 수호자 아트록스와 그의 종족은 결국 공허보다 위험한 존재가 되어 룬테라의 존속을 위협했지만, 교활한 필멸자의 마법에 속아넘어가 패배하게 되었다. 수백 년에 걸친 봉인 끝에, 아트록스는 자신의 정기가 깃든 마법 무기를 휘두르는 어리석은 자들을 타락시키고 육신을 바꾸는 것으로 다시 한번 자유의 길을 찾아내었다. 이제 이전의 잔혹한 모습을 닮은 육체를 차지한 아트록스는 세상의 종말과 오랫동안 기다려온 복수를...","info":{"attack":8,"defense":4,"magic":3,"difficulty":4},"image":{"full":"Aatrox.png","sprite":"champion0.png","group":"champion","x":0,"y":0,"w":48,"h":48},"tags":["Fighter"],"partype":"피의 샘","stats":{"hp":650,"hpperlevel":114,"mp":0,"mpperlevel":0,"movespeed":345,"armor":38,"armorperlevel":4.8,"spellblock":32,"spellblockperlevel":2.05,"attackrange":175,"hpregen":3,"hpregenperlevel":0.5,"mpregen":0,"mpregenperlevel":0,"crit":0,"critperlevel":0,"attackdamage":60,"attackdamageperlevel":5,"attackspeedperlevel":2.5,"attackspeed":0.651}},"Ahri":{"version":"15.6.1","id":"Ahri","key":"103","name":"아리","title":"구미호","blurb":"영혼 세계의 마법과 선천적으로 연결된 아리는 먹잇감의 감정을 조종하고 정수를 집어삼킬 수 있는 여우 모습의 바스타야로, 영혼을 먹어 치울 때마다 그 안에 담긴 지혜와 기억의 편린을 받아들인다. 강력하면서도 불안정한 포식자였던 아리는 이제 조상들의 흔적을 찾아 세상을 여행하며 지금껏 훔친 기억을 버리고 스스로 자신만의 추억을 쌓으려 한다.","info":{"attack":3,"defense":4,"magic":8,"difficulty":5},"image":{"full":"Ahri.png","sprite":"champion0.png","group":"champion","x":48,"y":0,"w":48,"h":48},"tags":["Mage","Assassin"],"partype":"마나","stats":{"hp":590,"hpperlevel":104,"mp":418,"mpperlevel":25,"movespeed":330,"armor":21,"armorperlevel":4.7,"spellblock":30,"spellblockperlevel":1.3,"attackrange":550,"hpregen":2.5,"hpregenperlevel":0.6,"mpregen":8,"mpregenperlevel":0.8,"crit":0,"critperlevel":0,"attackdamage":53,"attackdamageperlevel":3,"attackspeedperlevel":2.2,"attackspeed":0.668}},"Akali":{"version":"15.6.1","id":"Akali","key":"84","name":"아칼리","title":"섬기는 이 없는 암살자","blurb":"킨코우 결사단과 그림자의 권이라는 지위를 버린 아칼리는 아이오니아인들에게 필요한 강력한 무기가 되어 홀로 싸우고 있다. 스승 쉔의 가르침을 잊지 않은 채 아이오니아의 적을 하나씩 암살하기로 맹세했다. 아칼리의 살행은 은밀할지 모르나 그녀의 메시지는 대륙 전체를 뒤흔든다. ''경외하라. 나는 섬기는 이 없는 암살자다.''","info":{"attack":5,"defense":3,"magic":8,"difficulty":7},"image":{"full":"Akali.png","sprite":"champion0.png","group":"champion","x":96,"y":0,"w":48,"h":48},"tags":["Assassin"],"partype":"기력","stats":{"hp":600,"hpperlevel":119,"mp":200,"mpperlevel":0,"movespeed":345,"armor":23,"armorperlevel":4.7,"spellblock":37,"spellblockperlevel":2.05,"attackrange":125,"hpregen":9,"hpregenperlevel":0.9,"mpregen":50,"mpregenperlevel":0,"crit":0,"critperlevel":0,"attackdamage":62,"attackdamageperlevel":3.3,"attackspeedperlevel":3.2,"attackspeed":0.625}},"Akshan":{"version":"15.6.1","id":"Akshan","key":"166","name":"아크샨","title":"떠도는 감시자","blurb":"상반신을 드러낸 아크샨은 위험에 직면하면 눈썹을 치켜올리며 당당한 카리스마, 정의로운 복수심으로 악과 맞서 싸운다. 전투에서 뛰어난 은신술을 발휘하며 적의 눈을 피한 후 제일 예기치 못한 순간 다시 모습을 드러낸다. 불타는 정의감과 죽음을 되돌리는 전설적인 무기로 룬테라의 수많은 악한들이 저지른 잘못을 바로잡으며 '멍청이가 되지 말자'라는 자신만의 도덕적 기준에 따라 살아간다.","info":{"attack":0,"defense":0,"magic":0,"difficulty":0},"image":{"full":"Akshan.png","sprite":"champion0.png","group":"champion","x":144,"y":0,"w":48,"h":48},"tags":["Marksman","Assassin"],"partype":"마나","stats":{"hp":630,"hpperlevel":107,"mp":350,"mpperlevel":40,"movespeed":330,"armor":26,"armorperlevel":4.7,"spellblock":30,"spellblockperlevel":1.3,"attackrange":500,"hpregen":3.75,"hpregenperlevel":0.65,"mpregen":8.2,"mpregenperlevel":0.7,"crit":0,"critperlevel":0,"attackdamage":52,"attackdamageperlevel":3,"attackspeedperlevel":4,"attackspeed":0.638}}}}
+                """;
+
+        String url = "https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/champion.json";
+
+        mockServer.expect(requestTo(url))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLChampionListDto champions = lolService.getChampions(version, language);
+
+        assertThat(champions).isNotNull();
+        assertThat(champions.getVersion()).isEqualTo(version);
+        assertThat(champions.getData()).isNotNull();
+        assertThat(champions.getData().size()).isEqualTo(4);
+        assertThat(champions.getData().get("Aatrox").getName()).isEqualTo("아트록스");
+
+        mockServer.verify();
+    }
+
+    @Test
     public void testGetAccountByRiotId() {
         String gameName = "테스트";
         String tagLine = "KR1";
