@@ -93,7 +93,7 @@ public class LoLServiceTest {
     }
 
     @Test
-    public void testGetChampions() {
+    public void testGetChampionList() {
         String version = "15.6.1";
         String language = "ko_KR";
         String jsonResponse = """
@@ -105,7 +105,7 @@ public class LoLServiceTest {
         mockServer.expect(requestTo(url))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
 
-        LoLChampionListDto champions = lolService.getChampions(version, language);
+        LoLChampionListDto champions = lolService.getChampionList(version, language);
 
         assertThat(champions).isNotNull();
         assertThat(champions.getVersion()).isEqualTo(version);

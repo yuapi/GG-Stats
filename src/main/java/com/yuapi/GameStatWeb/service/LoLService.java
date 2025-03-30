@@ -70,7 +70,7 @@ public class LoLService {
     }
 
     @Transactional
-    public LoLChampionListDto getChampions(String version, String language) {
+    public LoLChampionListDto getChampionList(String version, String language) {
         String url = "https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/champion.json";
 
         return restTemplate.getForObject(url, LoLChampionListDto.class);
