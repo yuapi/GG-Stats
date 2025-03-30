@@ -486,7 +486,7 @@ public class LoLServiceTest {
         mockServer.expect(requestTo(uriBuilder.toUriString()))
                 .andRespond(withSuccess(responseJson, MediaType.APPLICATION_JSON));
 
-        LoLChampionInfoDto championRotations = lolService.getChampionRotations(region);
+        LoLChampionRotationDto championRotations = lolService.getChampionRotations(region);
 
         assertThat(championRotations).isNotNull();
         assertThat(championRotations.getFreeChampionIdsForNewPlayers().size()).isEqualTo(20);

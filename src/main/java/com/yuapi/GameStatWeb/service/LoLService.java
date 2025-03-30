@@ -148,10 +148,10 @@ public class LoLService {
     }
 
     @Transactional
-    public LoLChampionInfoDto getChampionRotations(String region) {
+    public LoLChampionRotationDto getChampionRotations(String region) {
         UriComponentsBuilder uriBuilder = defaultUriBuilder(region, "/lol/platform/v3/champion-rotations");
 
-        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLChampionInfoDto.class);
+        return restTemplate.getForObject(uriBuilder.build(false).toUriString(), LoLChampionRotationDto.class);
     }
 
     @Transactional

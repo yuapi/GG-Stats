@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class LoLChampionInfoDto {
+public class LoLChampionRotationDto {
     private int maxNewPlayerLevel;
     private List<Integer> freeChampionIdsForNewPlayers;
     private List<Integer> freeChampionIds;
