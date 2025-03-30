@@ -77,6 +77,13 @@ public class LoLService {
     }
 
     @Transactional
+    public LoLChampionDetail getChampionDetail(String version, String language, String name) {
+        String url = "https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/champion/" + name + ".json";
+
+        return restTemplate.getForObject(url, LoLChampionDetail.class);
+    }
+
+    @Transactional
     public RiotAccountDto getAccountByRiotId(String gameName, String tagLine) {
         UriComponentsBuilder uriBuilder = defaultUriBuilder("asia", "/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine);
 
