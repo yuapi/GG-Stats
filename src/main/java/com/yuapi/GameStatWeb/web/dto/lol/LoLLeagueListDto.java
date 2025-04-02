@@ -16,7 +16,7 @@ public class LoLLeagueListDto {
 
     @Getter
     @Builder
-    public static class LeagueItemDto {
+    private static class LeagueItemDto {
         private boolean freshBlood;
         private int wins;
         private LoLMiniSeriesDto miniSeries;
