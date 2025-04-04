@@ -84,6 +84,13 @@ public class LoLService {
     }
 
     @Transactional
+    public LoLProfileIconListDto getProfileIconList(String version, String language) {
+        String url = "https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/profileicon.json";
+
+        return restTemplate.getForObject(url, LoLProfileIconListDto.class);
+    }
+
+    @Transactional
     public RiotAccountDto getAccountByRiotId(String gameName, String tagLine) {
         UriComponentsBuilder uriBuilder = defaultUriBuilder("asia", "/riot/account/v1/accounts/by-riot-id/" + gameName + "/" + tagLine);
 
