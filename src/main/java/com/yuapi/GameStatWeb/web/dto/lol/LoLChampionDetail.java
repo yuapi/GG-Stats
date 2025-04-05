@@ -16,7 +16,7 @@ public class LoLChampionDetail {
 
     @Getter
     @Builder
-    private static class Champion {
+    public static class Champion {
         private String id;
         private String key;
         private String name;
@@ -38,7 +38,7 @@ public class LoLChampionDetail {
 
     @Getter
     @Builder
-    private static class ImageDetail {
+    public static class ImageDetail {
         private String full;
         private String sprite;
         private String group;
@@ -50,7 +50,7 @@ public class LoLChampionDetail {
 
     @Getter
     @Builder
-    private static class Skin {
+    public static class Skin {
         private String id;
         private int num;
         private String name;
@@ -59,7 +59,7 @@ public class LoLChampionDetail {
 
     @Getter
     @Builder
-    private static class Summary {
+    public static class Summary {
         private int attack;
         private int defense;
         private int magic;
@@ -68,7 +68,7 @@ public class LoLChampionDetail {
 
     @Getter
     @Builder
-    private static class Stats {
+    public static class Stats {
         private int hp;
         private int hpperlevel;
         private int mp;
@@ -93,7 +93,7 @@ public class LoLChampionDetail {
 
     @Getter
     @Builder
-    private static class Spell {
+    public static class Spell {
         private String id;
         private String name;
         private String description;
@@ -118,14 +118,14 @@ public class LoLChampionDetail {
 
     @Getter
     @Builder
-    private static class LevelTip {
+    public static class LevelTip {
         private List<String> label;
         private List<String> effect;
     }
 
     @Getter
     @Builder
-    private static class Passive {
+    public static class Passive {
         private String name;
         private String description;
         private ImageDetail image;

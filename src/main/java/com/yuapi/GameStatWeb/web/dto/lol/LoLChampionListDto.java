@@ -16,7 +16,7 @@ public class LoLChampionListDto {
 
     @Getter
     @Builder
-    private static class Champion {
+    public static class Champion {
         private String version;
         private String id;
         private String key;
@@ -32,7 +32,7 @@ public class LoLChampionListDto {
 
     @Getter
     @Builder
-    private static class Summary {
+    public static class Summary {
         private int attack;
         private int defense;
         private int magic;
@@ -41,7 +41,7 @@ public class LoLChampionListDto {
 
     @Getter
     @Builder
-    private static class ImageDetail {
+    public static class ImageDetail {
         private String full;
         private String sprite;
         private String group;
@@ -53,7 +53,7 @@ public class LoLChampionListDto {
 
     @Getter
     @Builder
-    private static class Stats {
+    public static class Stats {
         private int hp;
         private int hpperlevel;
         private int mp;

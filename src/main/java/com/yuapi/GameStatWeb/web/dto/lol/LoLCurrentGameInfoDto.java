@@ -22,7 +22,7 @@ public class LoLCurrentGameInfoDto {
 
     @Getter
     @Builder
-    private static class BannedChampion {
+    public static class BannedChampion {
         private int pickTurn;
         private Long championId;
         private Long teamId;
@@ -30,13 +30,13 @@ public class LoLCurrentGameInfoDto {
 
     @Getter
     @Builder
-    private static class Observer {
+    public static class Observer {
         private String encryptionKey;
     }
 
     @Getter
     @Builder
-    private static class CurrentGameParticipant {
+    public static class CurrentGameParticipant {
         private Long championId;
         private Perks perks;
         private Long profileIconId;
@@ -51,7 +51,7 @@ public class LoLCurrentGameInfoDto {
 
     @Getter
     @Builder
-    private static class Perks {
+    public static class Perks {
         private List<Long> perkIds;
         private Long perkStyle;
         private Long perkSubStyle;
@@ -59,7 +59,7 @@ public class LoLCurrentGameInfoDto {
 
     @Getter
     @Builder
-    private static class GameCustomizationObject {
+    public static class GameCustomizationObject {
         private String category;
         private String content;
     }

@@ -13,7 +13,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class MetadataDto {
+    public static class MetadataDto {
         private String dataVersion;
         private String matchId;
         private List<String> participants;
@@ -21,7 +21,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class InfoDto {
+    public static class InfoDto {
         private String endOfGameResult;
         private Long gameCreation;
         private Long gameDuration;
@@ -42,7 +42,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class ParticipantDto {
+    public static class ParticipantDto {
         private int allInPings;
         private int assistMePings;
         private int assist;
@@ -187,7 +187,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class ChallengesDto {
+    public static class ChallengesDto {
         private int _12AssistStreakCount;
         private int baronBuffGoldAdvantageOverThreshold;
         private float controlWardTimeCoverageInRiverOrEnemyHalf;
@@ -338,7 +338,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class MissionsDto {
+    public static class MissionsDto {
         private int playerScore0;
         private int playerScore1;
         private int playerScore2;
@@ -355,14 +355,14 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class PerksDto {
+    public static class PerksDto {
         private PerkStatsDto statPerks;
         private List<PerkStyleDto> styles;
     }
 
     @Getter
     @Builder
-    private static class PerkStatsDto {
+    public static class PerkStatsDto {
         private int defense;
         private int flex;
         private int offense;
@@ -370,7 +370,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class PerkStyleDto {
+    public static class PerkStyleDto {
         private String description;
         private List<PerkStyleSelectionDto> selections;
         private int style;
@@ -378,7 +378,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class PerkStyleSelectionDto {
+    public static class PerkStyleSelectionDto {
         private int perk;
         private int var1;
         private int var2;
@@ -387,7 +387,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class TeamDto {
+    public static class TeamDto {
         private List<BanDto> bans;
         private ObjectivesDto objectives;
         private int teamId;
@@ -396,14 +396,14 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class BanDto {
+    public static class BanDto {
         private int championId;
         private int pickTurn;
     }
 
     @Getter
     @Builder
-    private static class ObjectivesDto {
+    public static class ObjectivesDto {
         private ObjectiveDto baron;
         private ObjectiveDto champion;
         private ObjectiveDto dragon;
@@ -415,7 +415,7 @@ public class LoLMatchDto {
 
     @Getter
     @Builder
-    private static class ObjectiveDto {
+    public static class ObjectiveDto {
         private boolean first;
         private int kills;
     }

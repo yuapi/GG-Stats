@@ -15,7 +15,7 @@ public class LoLSummonerSpellDto {
 
     @Getter
     @Builder
-    private static class SummonerSpell {
+    public static class SummonerSpell {
         private String id;
         private String name;
         private String description;
@@ -41,7 +41,7 @@ public class LoLSummonerSpellDto {
 
     @Getter
     @Builder
-    private static class ImageDetail {
+    public static class ImageDetail {
         private String full;
         private String sprite;
         private String group;
