@@ -1,18 +1,27 @@
 package com.yuapi.GameStatWeb.web.dto.lol;
 
+import lombok.Builder;
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
+@Builder
 public class LoLProfileIconListDto {
     private String type;
     private String version;
     private List<IconData> data;
 
-    private static class IconData {
+    @Getter
+    @Builder
+    public static class IconData {
         private int id;
         private ImageDetail image;
     }
 
-    private static class ImageDetail {
+    @Getter
+    @Builder
+    public static class ImageDetail {
         private String full;
         private String sprite;
         private String group;
