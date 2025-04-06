@@ -139,6 +139,25 @@ public class LoLServiceTest {
     }
 
     @Test
+    public void testGetProfileIconList() {
+        String version = "15.7.1";
+        String language = "ko_KR";
+        String jsonResponse = """
+                {"type":"profileicon","version":"15.7.1","data":{"0":{"id":0,"image":{"full":"0.png","sprite":"profileicon0.png","group":"profileicon","x":0,"y":0,"w":48,"h":48}},"50":{"id":"50","image":{"full":"50.png","sprite":"profileicon0.png","group":"profileicon","x":48,"y":0,"w":48,"h":48}},"10001":{"id":10001,"image":{"full":"10001.png","sprite":"profileicon0.png","group":"profileicon","x":96,"y":0,"w":48,"h":48}},"10002":{"id":10002,"image":{"full":"10002.png","sprite":"profileicon0.png","group":"profileicon","x":144,"y":0,"w":48,"h":48}},"10003":{"id":10003,"image":{"full":"10003.png","sprite":"profileicon0.png","group":"profileicon","x":192,"y":0,"w":48,"h":48}},"10004":{"id":10004,"image":{"full":"10004.png","sprite":"profileicon0.png","group":"profileicon","x":240,"y":0,"w":48,"h":48}},"10005":{"id":10005,"image":{"full":"10005.png","sprite":"profileicon0.png","group":"profileicon","x":288,"y":0,"w":48,"h":48}},"1000":{"id":1000,"image":{"full":"1000.png","sprite":"profileicon0.png","group":"profileicon","x":336,"y":0,"w":48,"h":48}},"1001":{"id":1001,"image":{"full":"1001.png","sprite":"profileicon0.png","group":"profileicon","x":384,"y":0,"w":48,"h":48}}}}
+                """;
+
+        String url = "https://ddragon.leagueoflegends.com/cdn/" + version + "/data/" + language + "/profileicon.json";
+
+        mockServer.expect(requestTo(url))
+                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+
+        LoLProfileIconListDto profileIconList = lolService.getProfileIconList(version, language);
+
+        assertThat(profileIconList).isNotNull();
+        assertThat(profileIconList.getType()).isEqualTo("profileicon");
+    }
+
+    @Test
     public void testGetAccountByRiotId() {
         String gameName = "테스트";
         String tagLine = "KR1";
