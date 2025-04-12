@@ -1,14 +1,9 @@
 package com.yuapi.GameStatWeb.web;
 
-import java.util.List;
-import java.util.Map;
-import com.yuapi.GameStatWeb.service.PostsService;
-import com.yuapi.GameStatWeb.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RequiredArgsConstructor
 @Controller
