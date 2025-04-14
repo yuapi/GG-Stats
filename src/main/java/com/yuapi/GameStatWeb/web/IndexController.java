@@ -15,29 +15,4 @@ public class IndexController {
 
         return "index";
     }
-
-//    @GetMapping("/example")
-//    public String example(Model model) {
-//        model.addAttribute("title", "Example Page");
-//        model.addAttribute("posts", postsService.findAllDesc());
-//
-//        return "example";
-//    }
-//
-//    @GetMapping("/posts/save")
-//    public String postsSave(Model model) {
-//        model.addAttribute("title", "Posts Save");
-//
-//        return "posts-save";
-//    }
-//
-//    @GetMapping("/posts/update/{id}")
-//    public String postsUpdate(@PathVariable Long id, Model model) {
-//        model.addAttribute("title", "Posts Update");
-//
-//        PostsResponseDto dto = postsService.findById(id);
-//        model.addAttribute("post", dto);
-//
-//        return "posts-update";
-//    }
 }
